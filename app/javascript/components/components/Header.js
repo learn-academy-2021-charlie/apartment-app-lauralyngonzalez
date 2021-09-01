@@ -19,17 +19,28 @@ class Header extends Component {
                 <NavItem>
                     <NavLink href="/recipeindex">Recipes</NavLink>
                 </NavItem>
-                { logged_in &&
-                <NavItem>
-                    <NavLink href={sign_out_route}>Sign out</NavLink>
-                </NavItem>
-                }
                 { !logged_in && 
                 <NavItem>
                     <NavLink href={sign_in_route}>Sign in</NavLink>
                 </NavItem>
                 }
+                { logged_in && 
+                <NavItem>
+                    <NavLink href={sign_out_route}>Sign out</NavLink>
+                </NavItem>
+                }
             </Nav>
+
+            { logged_in &&
+            <Nav>
+                <NavItem>
+                    <NavLink href="">My Recipes</NavLink>
+                </NavItem>
+                <NavItem>
+                    <NavLink href="">Create a New Recipe</NavLink>
+                </NavItem>
+            </Nav>
+            }
             </>
         )
     }
