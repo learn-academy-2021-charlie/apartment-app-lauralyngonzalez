@@ -37,7 +37,7 @@ class Header extends Component {
                     <NavLink href="">My Recipes</NavLink>
                 </NavItem>
                 <NavItem>
-                    <NavLink href="">Create a New Recipe</NavLink>
+                    <NavLink href="/recipenew">Create a New Recipe</NavLink>
                 </NavItem>
             </Nav>
             }

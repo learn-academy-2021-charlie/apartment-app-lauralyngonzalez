@@ -3,6 +3,7 @@ import Home from './pages/Home'
 import NotFound from './pages/NotFound'
 import Recipes from './pages/Recipes'
 import Recipe from './pages/Recipe'
+import NewRecipe from './pages/NewRecipe'
 import Header from './components/Header'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
@@ -23,6 +24,14 @@ class App extends Component {
       .then(response => response.json())
       .then(recipes => this.setState({ recipes: recipes }))
       .catch(errors => console.log("Recipe read errors:", errors))
+  }
+
+  createRecipe = (newRecipe) => {
+    console.log(this.props.current_user.id)
+    console.log(newRecipe)
+    newRecipe["user_id"] = this.props.current_user.id
+    console.log(this.props.current_user.id)
+    console.log(newRecipe)
   }
 
   render () {
@@ -50,6 +59,8 @@ class App extends Component {
                 const recipe = this.state.recipes.find(recipe => recipe.id === +id)
                 return <Recipe recipe={recipe} />
               }} />
+            <Route path="/recipenew"
+              render={ (props) => <NewRecipe createRecipe={this.createRecipe}/>} />
             <Route component={ NotFound } />
           </Switch>
         </Router>
