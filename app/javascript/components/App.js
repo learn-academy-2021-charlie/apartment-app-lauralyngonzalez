@@ -19,24 +19,36 @@ class App extends Component {
     this.readRecipe()
   }
 
+  /*
+   * Gets all recipes from the DB and saves it to state.
+   */
   readRecipe = () => {
-    fetch("http://localhost:3000/recipes")
+    fetch("/recipes")
       .then(response => response.json())
       .then(recipes => this.setState({ recipes: recipes }))
       .catch(errors => console.log("Recipe read errors:", errors))
   }
 
+  /*
+   * Creates the recipe via a POST request to the DB.
+   * A recipe requires a user_id which we get from the current user.
+   */
   createRecipe = (newRecipe) => {
-    console.log(this.props.current_user.id)
-    console.log(newRecipe)
     newRecipe["user_id"] = this.props.current_user.id
-    console.log(this.props.current_user.id)
-    console.log(newRecipe)
+    fetch("/recipes", {
+      body: JSON.stringify(newRecipe),
+      headers: {
+        "Content-Type": "application/json"
+      },
+      method: "POST"
+    })
+      .then(response => response.json())
+      .then(payload => this.readRecipe())
+      .catch(errors => console.log("Recipe create errors:", errors))
   }
 
   render () {
     const {
-      current_user,
       logged_in,
       sign_in_route,
       sign_out_route

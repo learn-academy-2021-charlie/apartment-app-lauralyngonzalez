@@ -36,6 +36,7 @@ RSpec.describe "Recipes", type: :request do
 
       user = User.first
 
+      # add the previously created user to recipe_params
       recipe_params = {
         recipe: {
           name: 'Avocado Toast with Egg',
@@ -48,7 +49,6 @@ RSpec.describe "Recipes", type: :request do
         }
       }
 
-      # not using user to create right now!!! WARNING
       post recipes_path, params: recipe_params
 
       expect(response).to have_http_status(200)
