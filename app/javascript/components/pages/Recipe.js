@@ -1,4 +1,5 @@
 import React, { Component } from "react"
+import { NavLink } from 'react-router-dom'
 
 class Recipe extends Component {
     render() {
@@ -19,7 +20,9 @@ class Recipe extends Component {
             </div>
 
             {current_user && current_user.id === recipe.user_id && 
-            <p>Edit</p>
+            <NavLink to={`/recipeedit/${recipe.id}`}>
+                <h4>Edit</h4>
+            </NavLink>
             }
 
             </>
