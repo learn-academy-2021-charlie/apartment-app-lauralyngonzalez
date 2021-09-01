@@ -49,6 +49,7 @@ class App extends Component {
 
   render () {
     const {
+      current_user,
       logged_in,
       sign_in_route,
       sign_out_route
@@ -69,7 +70,7 @@ class App extends Component {
               render={ (props) => {
                 const id = props.match.params.id
                 const recipe = this.state.recipes.find(recipe => recipe.id === +id)
-                return <Recipe recipe={recipe} />
+                return <Recipe recipe={recipe} current_user={current_user}/>
               }} />
             <Route path="/recipenew"
               render={ (props) => <NewRecipe createRecipe={this.createRecipe}/>} />

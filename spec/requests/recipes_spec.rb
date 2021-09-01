@@ -59,4 +59,47 @@ RSpec.describe "Recipes", type: :request do
     end
   end
 
+  describe "PATCH /update" do
+    it "updates a recipe" do
+      User.create(
+        email: 'test@test.com',
+        password: 'test123'
+      )
+
+      user = User.first
+      user.recipes.create(
+        name: 'Avocado Toast',
+        description: 'A delightful brunch item',
+        time: 5,
+        course: 'brunch',
+        cuisine: 'American',
+        servings: 2
+      )
+
+      updated_recipe_params = {
+        recipe: {
+          name: 'Ultimate Avocado Toast',
+          description: 'A delightful brunch item for the whole family',
+          time: 20,
+          course: 'brunch',
+          cuisine: 'American',
+          servings: 4,
+          user_id: user.id
+        }
+      }
+
+      recipe = Recipe.first
+      
+      patch "#{recipes_path}/#{recipe.id}", params: updated_recipe_params
+
+      updated_recipe = Recipe.find(recipe.id)
+
+      expect(response).to have_http_status(200)
+      expect(updated_recipe.name).to eq 'Ultimate Avocado Toast'
+      expect(updated_recipe.time).to eq 20
+      expect(updated_recipe.course).to eq 'brunch'
+      expect(updated_recipe.servings).to eq 4
+    end
+  end
+
 end
