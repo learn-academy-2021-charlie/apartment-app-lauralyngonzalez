@@ -4,6 +4,7 @@ import NotFound from './pages/NotFound'
 import Recipes from './pages/Recipes'
 import Recipe from './pages/Recipe'
 import NewRecipe from './pages/NewRecipe'
+import EditRecipe from './pages/EditRecipe'
 import Header from './components/Header'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
@@ -47,6 +48,11 @@ class App extends Component {
       .catch(errors => console.log("Recipe create errors:", errors))
   }
 
+  updateRecipe = (recipe) => {
+    recipe["user_id"] = this.props.current_user.id
+    console.log(recipe)
+  }
+
   render () {
     const {
       current_user,
@@ -74,6 +80,12 @@ class App extends Component {
               }} />
             <Route path="/recipenew"
               render={ (props) => <NewRecipe createRecipe={this.createRecipe}/>} />
+            <Route path="/recipeedit/:id"
+              render={ (props) => {
+                const id = props.match.params.id
+                const recipe = this.state.recipes.find(recipe => recipe.id === +id)
+                return <EditRecipe recipe={recipe} updateRecipe={this.updateRecipe}/>
+              }} />
             <Route component={ NotFound } />
           </Switch>
         </Router>
