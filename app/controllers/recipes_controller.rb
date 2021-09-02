@@ -25,6 +25,12 @@ class RecipesController < ApplicationController
         end
     end
 
+    def destroy
+        recipe = Recipe.find_by(id: params[:id], user_id: params[:recipe][:user_id])
+        recipe.destroy
+        render json: recipe
+    end
+
     private
     def recipe_params
         params.require(:recipe).permit(:name, :description, :time, :course, :cuisine, :servings)

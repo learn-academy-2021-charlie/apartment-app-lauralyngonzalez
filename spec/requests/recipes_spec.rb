@@ -114,4 +114,44 @@ RSpec.describe "Recipes", type: :request do
     end
   end
 
+  describe "DELETE /delete" do
+    it "deletes a recipe that belongs to the user" do
+      User.create(
+        email: 'test@test.com',
+        password: 'test123'
+      )
+
+      user = User.first
+      user.recipes.create(
+        name: 'Avocado Toast',
+        description: 'A delightful brunch item',
+        time: 5,
+        course: 'brunch',
+        cuisine: 'American',
+        servings: 2
+      )
+      user.recipes.create(
+        name: 'Avocado Toast on multigrain bread',
+        description: 'A healthy and delightful brunch item',
+        time: 5,
+        course: 'brunch',
+        cuisine: 'American',
+        servings: 2
+      )
+
+      recipe = Recipe.first
+
+      recipe_params_with_user = {
+        recipe: {
+          user_id: user.id
+        }
+      }
+
+      delete "#{recipes_path}/#{recipe.id}", params: recipe_params_with_user
+
+      expect(response).to have_http_status(200)
+      expect(Recipe.all.length).to eq 1
+    end
+  end
+
 end

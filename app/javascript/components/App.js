@@ -62,6 +62,20 @@ class App extends Component {
       .catch(errors => console.log("Recipe update errors:", errors))
   }
 
+  deleteRecipe = (recipe) => {
+    recipe["user_id"] = this.props.current_user.id
+    fetch(`/recipes/${recipe.id}`, {
+      body: JSON.stringify(recipe),
+      headers: {
+        "Content-Type": "application/json"
+      },
+      method: "DELETE"
+    })
+      .then(response => response.json())
+      .then(payload => this.readRecipe())
+      .catch(errors => console.log("Recipe delete errors:", errors))
+  }
+
   render () {
     const {
       current_user,
@@ -85,7 +99,7 @@ class App extends Component {
               render={ (props) => {
                 const id = props.match.params.id
                 const recipe = this.state.recipes.find(recipe => recipe.id === +id)
-                return <Recipe recipe={recipe} current_user={current_user}/>
+                return <Recipe recipe={recipe} current_user={current_user} deleteRecipe={this.deleteRecipe}/>
               }} />
             <Route path="/recipenew"
               render={ (props) => <NewRecipe createRecipe={this.createRecipe}/>} />
