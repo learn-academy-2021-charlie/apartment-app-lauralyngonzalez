@@ -43,7 +43,7 @@ class EditRecipe extends Component {
      * Handles recipe form submission and turns on submitted flag
      */
     handleSubmit = (e) => {
-        this.props.createRecipe(this.state.recipe)
+        this.props.updateRecipe(this.state.recipe)
         this.setState({submitted: true})
     }
 
@@ -112,7 +112,7 @@ class EditRecipe extends Component {
                 </Button>
             </Form>
 
-            {this.state.submitted && <Redirect to={`/recipeshow/${recipe.id}`} />}
+            {this.state.submitted && <Redirect to={`/recipeshow/${this.props.curr_recipe.id}`} />}
             </>
         )
     }

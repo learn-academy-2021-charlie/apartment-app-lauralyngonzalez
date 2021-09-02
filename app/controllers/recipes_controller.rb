@@ -16,9 +16,8 @@ class RecipesController < ApplicationController
     end
 
     def update
-        user = User.find(params[:recipe][:user_id])
-        recipe = Recipe.find_by(user_id: user.id, id: params[:id])
-        user.recipes.update(recipe_params)
+        recipe = Recipe.find_by(user_id: params[:recipe][:user_id], id: params[:id])
+        recipe.update(recipe_params)
         if recipe.valid?
             render json: recipe
         else

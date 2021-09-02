@@ -75,6 +75,14 @@ RSpec.describe "Recipes", type: :request do
         cuisine: 'American',
         servings: 2
       )
+      user.recipes.create(
+        name: 'Avocado Toast on sourdough bread',
+        description: 'A delightful brunch item',
+        time: 5,
+        course: 'brunch',
+        cuisine: 'American',
+        servings: 2
+      )
 
       updated_recipe_params = {
         recipe: {
@@ -99,6 +107,10 @@ RSpec.describe "Recipes", type: :request do
       expect(updated_recipe.time).to eq 20
       expect(updated_recipe.course).to eq 'brunch'
       expect(updated_recipe.servings).to eq 4
+
+      other_recipe = Recipe.second
+
+      expect(other_recipe.name).to eq 'Avocado Toast on sourdough bread'
     end
   end
 

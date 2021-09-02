@@ -50,7 +50,19 @@ class App extends Component {
 
   updateRecipe = (recipe) => {
     recipe["user_id"] = this.props.current_user.id
+
     console.log(recipe)
+
+    fetch(`/recipes/${recipe.id}`, {
+      body: JSON.stringify(recipe),
+      headers: {
+        "Content-Type": "application/json"
+      },
+      method: "PATCH"
+    })
+      .then(response => response.json())
+      .then(payload => this.readRecipe())
+      .catch(errors => console.log("Recipe update errors:", errors))
   }
 
   render () {
