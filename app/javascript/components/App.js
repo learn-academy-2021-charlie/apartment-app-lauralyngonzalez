@@ -4,6 +4,7 @@ import NotFound from './pages/NotFound'
 import Recipes from './pages/Recipes'
 import Recipe from './pages/Recipe'
 import NewRecipe from './pages/NewRecipe'
+import EditRecipe from './pages/EditRecipe'
 import Header from './components/Header'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
@@ -47,8 +48,23 @@ class App extends Component {
       .catch(errors => console.log("Recipe create errors:", errors))
   }
 
+  updateRecipe = (recipe) => {
+    recipe["user_id"] = this.props.current_user.id
+    fetch(`/recipes/${recipe.id}`, {
+      body: JSON.stringify(recipe),
+      headers: {
+        "Content-Type": "application/json"
+      },
+      method: "PATCH"
+    })
+      .then(response => response.json())
+      .then(payload => this.readRecipe())
+      .catch(errors => console.log("Recipe update errors:", errors))
+  }
+
   render () {
     const {
+      current_user,
       logged_in,
       sign_in_route,
       sign_out_route
@@ -69,10 +85,16 @@ class App extends Component {
               render={ (props) => {
                 const id = props.match.params.id
                 const recipe = this.state.recipes.find(recipe => recipe.id === +id)
-                return <Recipe recipe={recipe} />
+                return <Recipe recipe={recipe} current_user={current_user}/>
               }} />
             <Route path="/recipenew"
               render={ (props) => <NewRecipe createRecipe={this.createRecipe}/>} />
+            <Route path="/recipeedit/:id"
+              render={ (props) => {
+                const id = props.match.params.id
+                const recipe = this.state.recipes.find(recipe => recipe.id === +id)
+                return <EditRecipe curr_recipe={recipe} updateRecipe={this.updateRecipe}/>
+              }} />
             <Route component={ NotFound } />
           </Switch>
         </Router>
