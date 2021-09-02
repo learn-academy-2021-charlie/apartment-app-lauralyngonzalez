@@ -91,8 +91,7 @@ RSpec.describe "Recipes", type: :request do
           time: 20,
           course: 'brunch',
           cuisine: 'American',
-          servings: 4,
-          user_id: user.id
+          servings: 4
         }
       }
 
@@ -141,13 +140,7 @@ RSpec.describe "Recipes", type: :request do
 
       recipe = Recipe.first
 
-      recipe_params_with_user = {
-        recipe: {
-          user_id: user.id
-        }
-      }
-
-      delete "#{recipes_path}/#{recipe.id}", params: recipe_params_with_user
+      delete "#{recipes_path}/#{recipe.id}"
 
       expect(response).to have_http_status(200)
       expect(Recipe.all.length).to eq 1

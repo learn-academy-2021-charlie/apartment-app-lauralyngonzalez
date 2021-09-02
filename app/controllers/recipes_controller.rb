@@ -16,7 +16,7 @@ class RecipesController < ApplicationController
     end
 
     def update
-        recipe = Recipe.find_by(user_id: params[:recipe][:user_id], id: params[:id])
+        recipe = Recipe.find(params[:id])
         recipe.update(recipe_params)
         if recipe.valid?
             render json: recipe
@@ -26,7 +26,7 @@ class RecipesController < ApplicationController
     end
 
     def destroy
-        recipe = Recipe.find_by(id: params[:id], user_id: params[:recipe][:user_id])
+        recipe = Recipe.find(params[:id])
         recipe.destroy
         render json: recipe
     end
