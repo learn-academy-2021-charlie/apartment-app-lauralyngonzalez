@@ -84,7 +84,7 @@ class App extends Component {
               render={ (props) => {
                 const id = props.match.params.id
                 const recipe = this.state.recipes.find(recipe => recipe.id === +id)
-                return <EditRecipe recipe={recipe} updateRecipe={this.updateRecipe}/>
+                return <EditRecipe curr_recipe={recipe} updateRecipe={this.updateRecipe}/>
               }} />
             <Route component={ NotFound } />
           </Switch>

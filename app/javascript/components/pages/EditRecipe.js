@@ -19,6 +19,18 @@ class EditRecipe extends Component {
     }
 
     /*
+     * Set the state of the recipe to the current recipe
+     */
+    componentDidMount() {
+        let { curr_recipe } = this.props 
+        let { recipe } = this.state
+        for (const key in curr_recipe) {
+            recipe[key] = curr_recipe[key]
+        }
+        this.setState({ recipe: recipe })
+    }
+
+    /*
      * Handles changes to the text fields
      */
     handleChange = (e) => {
