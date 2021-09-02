@@ -49,7 +49,6 @@ class App extends Component {
   }
 
   updateRecipe = (recipe) => {
-    recipe["user_id"] = this.props.current_user.id
     fetch(`/recipes/${recipe.id}`, {
       body: JSON.stringify(recipe),
       headers: {
@@ -63,9 +62,7 @@ class App extends Component {
   }
 
   deleteRecipe = (recipe) => {
-    recipe["user_id"] = this.props.current_user.id
     fetch(`/recipes/${recipe.id}`, {
-      body: JSON.stringify(recipe),
       headers: {
         "Content-Type": "application/json"
       },
