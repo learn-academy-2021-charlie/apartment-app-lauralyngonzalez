@@ -100,11 +100,11 @@ class App extends Component {
           <Switch>
             <Route exact path="/" component={Home} />
             <Route path="/recipeindex"
-              render={ (props) => <Recipes recipes={this.state.recipes} isMyRecipes={false}/> } />
+              render={ (props) => <Recipes recipes={this.state.recipes}/> } />
             <Route path="/myrecipes"
               render={ (props) => {
                 const myRecipes = this.state.recipes.filter( recipe => recipe.user_id === current_user.id)
-                return <MyRecipes recipes={myRecipes} isMyRecipes={true}/> 
+                return <Recipes recipes={myRecipes}/> 
               }}/>
             <Route path="/recipeshow/:id"
               render={ (props) => {

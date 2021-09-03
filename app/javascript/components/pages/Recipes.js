@@ -3,11 +3,10 @@ import { NavLink } from 'react-router-dom'
 
 class Recipes extends Component {
     render() {
-        const { recipes, isMyRecipes } = this.props
+        const { recipes } = this.props
         return(
             <>
-            {isMyRecipes && <h1>My Recipes</h1>}
-            {!isMyRecipes && <h1>Recipes</h1>}
+            <h1>Recipes</h1>
             {recipes && recipes.map( recipe => {
                 return (
                     <div key={recipe.id}>
