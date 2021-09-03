@@ -108,7 +108,7 @@ class EditRecipe extends Component {
                     />
                 </FormGroup>
                 <Button name="submit" onClick={this.handleSubmit}>
-                    Create Recipe
+                    Edit Recipe
                 </Button>
             </Form>
 

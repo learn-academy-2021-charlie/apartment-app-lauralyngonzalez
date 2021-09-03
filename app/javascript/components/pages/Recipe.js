@@ -35,12 +35,19 @@ class Recipe extends Component {
             <p>{recipe.description}</p>
             </div>
 
+            <h4>Ingredients</h4>
+            <ul>
+                {this.props.ingredients &&
+                this.props.ingredients.map( ingredient =>
+                    <li key={ingredient.id}>{ingredient.name}</li>)}
+            </ul>
+
             {current_user && current_user.id === recipe.user_id && 
             <>
             <NavLink to={`/recipeedit/${recipe.id}`}>
-                <h4>Edit</h4>
+                <Button>Edit Recipe</Button>
             </NavLink>
-            <Button onClick={this.handleSubmit}>Delete</Button>
+            <Button onClick={this.handleSubmit}>Delete Recipe</Button>
             </>
             }
 

@@ -12,12 +12,14 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      recipes: []
+      recipes: [],
+      ingredients: []
     }
   }
 
   componentDidMount() {
     this.readRecipe()
+    this.readIngredients()
   }
 
   /*
@@ -28,6 +30,13 @@ class App extends Component {
       .then(response => response.json())
       .then(recipes => this.setState({ recipes: recipes }))
       .catch(errors => console.log("Recipe read errors:", errors))
+  }
+
+  readIngredients = () => {
+    fetch("/ingredients")
+      .then(response => response.json())
+      .then(ingredients => this.setState({ ingredients: ingredients }))
+      .catch(errors => console.log("Ingredients read errors:", errors))
   }
 
   /*
@@ -96,8 +105,14 @@ class App extends Component {
               render={ (props) => {
                 const id = props.match.params.id
                 const recipe = this.state.recipes.find(recipe => recipe.id === +id)
-                return <Recipe recipe={recipe} current_user={current_user} deleteRecipe={this.deleteRecipe}/>
-              }} />
+                const ingredients = this.state.ingredients.filter(ingredient => ingredient.recipe_id === +id)
+                return (
+                  <Recipe
+                  recipe={recipe}
+                  ingredients={ingredients}
+                  current_user={current_user}
+                  deleteRecipe={this.deleteRecipe}/>
+                )}} />
             <Route path="/recipenew"
               render={ (props) => <NewRecipe createRecipe={this.createRecipe}/>} />
             <Route path="/recipeedit/:id"
