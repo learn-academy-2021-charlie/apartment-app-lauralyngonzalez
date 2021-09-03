@@ -34,7 +34,7 @@ class Header extends Component {
             { logged_in &&
             <Nav>
                 <NavItem>
-                    <NavLink href="">My Recipes</NavLink>
+                    <NavLink href="/myrecipes">My Recipes</NavLink>
                 </NavItem>
                 <NavItem>
                     <NavLink href="/recipenew">Create a New Recipe</NavLink>
